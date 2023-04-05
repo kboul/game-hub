@@ -1,4 +1,5 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
+
 import { Navbar } from "./components";
 
 export default function App() {
