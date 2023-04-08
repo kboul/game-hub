@@ -3,11 +3,6 @@ import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import { CanceledError } from "axios";
 
-interface Game {
-  id: number;
-  name: string;
-}
-
 interface FetchGamesResponse {
   count: number;
   results: Game[];
