@@ -4,12 +4,16 @@ interface GameCardProps {
   game: Game;
 }
 
+/* because this image is bigger than its container we 
+  only take round corners on the bottom and need to apply 
+  overflow hidden property */
+
 export default function GameCard({ game }: GameCardProps) {
   return (
-    <Card>
+    <Card borderRadius={10} overflow="hidden">
       <Image src={game.background_image} />
       <CardBody>
-        <Heading>{game.name}</Heading>
+        <Heading fontSize="2xl">{game.name}</Heading>
       </CardBody>
     </Card>
   );
