@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import { CanceledError } from "axios";
 
-interface FetchGamesResponse {
+interface FetchResponse<T> {
   count: number;
-  results: Game[];
+  results: T[];
 }
 
-export default function useGames() {
+export default function useData<T>(endpoint: string) {
   const [loading, setLoading] = useState(false);
-  const [games, setGames] = useState<Game[]>([]);
+  const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -18,9 +18,9 @@ export default function useGames() {
 
     setLoading(true);
     apiClient
-      .get<FetchGamesResponse>("/games", { signal: controller.signal })
+      .get<FetchResponse<T>>(endpoint, { signal: controller.signal })
       .then(res => {
-        setGames(res.data.results);
+        setData(res.data.results);
         setLoading(false);
       })
       .catch(err => {
@@ -32,5 +32,5 @@ export default function useGames() {
     return () => controller.abort();
   }, []);
 
-  return { loading, games, error };
+  return { loading, data, error };
 }

@@ -10,7 +10,7 @@ const skeletons = Array(12)
   .map((_, i) => i + 1);
 
 export default function GameGrid() {
-  const { loading, games, error } = useGames();
+  const { loading, data: games, error } = useGames();
 
   return (
     <>
@@ -18,7 +18,7 @@ export default function GameGrid() {
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         padding="10px"
-        spacing={10}>
+        spacing={3}>
         {loading &&
           skeletons.map(skeleton => (
             <GameCardContainer key={skeleton}>

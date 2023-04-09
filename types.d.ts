@@ -11,3 +11,9 @@ type Platform = {
   name: string;
   slug: string;
 };
+
+type Genre = {
+  id: number;
+  image_background: string;
+  name: string;
+};
