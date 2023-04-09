@@ -10,7 +10,7 @@ const skeletons = Array(12)
   .map((_, i) => i + 1);
 
 export default function GameGrid() {
-  const { loading, games, error } = useGames();
+  const { loading, data: games, error } = useGames();
 
   return (
     <>
