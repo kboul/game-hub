@@ -37,25 +37,25 @@ export default function GameGrid() {
       games.length === 0
   );
 
-  return (
-    <>
-      {error && <Text>{error}</Text>}
-      {showNoGamesAlert && NoGamesAlert}
-
-      <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-        padding="10px"
-        spacing={6}>
-        {loading &&
-          skeletons.map((skeleton) => (
-            <GameCardContainer key={skeleton}>
-              <GameCardSkeleton />
-            </GameCardContainer>
-          ))}
-        {games.map((game) => (
-          <GameCard game={game} key={game.id} />
+  let content = (
+    <SimpleGrid
+      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+      padding="10px"
+      spacing={6}>
+      {loading &&
+        skeletons.map((skeleton) => (
+          <GameCardContainer key={skeleton}>
+            <GameCardSkeleton />
+          </GameCardContainer>
         ))}
-      </SimpleGrid>
-    </>
+      {games.map((game) => (
+        <GameCard game={game} key={game.id} />
+      ))}
+    </SimpleGrid>
   );
+
+  if (error) content = <Text>{error}</Text>;
+  if (showNoGamesAlert) content = NoGamesAlert;
+
+  return content;
 }
