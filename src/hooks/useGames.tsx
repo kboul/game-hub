@@ -1,15 +1,25 @@
 import useData from "./useData";
 
-export default function useGames(
-  selectedGenre: Genre,
-  selectedPlatform: Platform
-) {
-  const genreId = selectedGenre.id;
-  const platformId = selectedPlatform.id;
+interface GameQuery {
+  selectedGenre: Genre;
+  selectedPlatform: Platform;
+  selectedSortOrder: string;
+}
+
+export default function useGames(gameQuery: GameQuery) {
+  const genreId = gameQuery.selectedGenre.id;
+  const platformId = gameQuery.selectedPlatform.id;
+  const sortOrder = gameQuery.selectedSortOrder;
 
   return useData<Game>(
     "/games",
-    { params: { genres: genreId, platforms: platformId } },
-    [genreId, platformId]
+    {
+      params: {
+        genres: genreId,
+        platforms: platformId,
+        ordering: gameQuery.selectedSortOrder
+      }
+    },
+    [genreId, platformId, sortOrder]
   );
 }
