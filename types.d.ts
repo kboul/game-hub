@@ -4,6 +4,8 @@ type Game = {
   metacritic: number;
   name: string;
   parent_platforms: { platform: Platform }[];
+  rating_top: number; // integer
+  rating: number; // floating
 };
 
 type Platform = {
