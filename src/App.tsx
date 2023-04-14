@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 
 import {
   GameGrid,
@@ -30,10 +30,12 @@ export default function App() {
         </Show>
       }
       <GridItem area="main">
-        <HStack spacing={5} paddingLeft={2} marginBottom={5}>
-          <PlatformSelector />
+        <Flex paddingLeft={2} marginBottom={5}>
+          <Box marginRight={5}>
+            <PlatformSelector />
+          </Box>
           <SortSelector />
-        </HStack>
+        </Flex>
         <GameGrid />
       </GridItem>
     </Grid>
