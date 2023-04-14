@@ -13,8 +13,14 @@ export default function GameGrid() {
   const selectedGenre = useStore((state) => state.selectedGenre);
   const selectedPlatform = useStore((state) => state.selectedPlatform);
   const selectedSortOrder = useStore((state) => state.selectedSortOrder);
+  const searchedGame = useStore((state) => state.searchedGame);
 
-  const gameQuery = { selectedGenre, selectedPlatform, selectedSortOrder };
+  const gameQuery = {
+    selectedGenre,
+    selectedPlatform,
+    selectedSortOrder,
+    searchedGame
+  };
 
   const { loading, data: games, error } = useGames(gameQuery);
 
