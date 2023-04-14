@@ -18,9 +18,24 @@ export default function GameGrid() {
 
   const { loading, data: games, error } = useGames(gameQuery);
 
+  const NoGamesAlert = (
+    <Alert status="info" mt={2} width="50%" marginLeft={2}>
+      <AlertIcon />
+      There are no games with the selected criteria.
+    </Alert>
+  );
+
+  const showNoGamesAlert = Boolean(
+    (Object.keys(selectedPlatform).length > 0 ||
+      Object.keys(selectedSortOrder).length) &&
+      games.length === 0
+  );
+
   return (
     <>
       {error && <Text>{error}</Text>}
+      {showNoGamesAlert && NoGamesAlert}
+
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
         padding="10px"
@@ -34,12 +49,6 @@ export default function GameGrid() {
         {games.map((game) => (
           <GameCard game={game} key={game.id} />
         ))}
-        {!loading && games.length === 0 && (
-          <Alert status="info" mt={2} width="95%">
-            <AlertIcon />
-            There are no games with the selected criteria.
-          </Alert>
-        )}
       </SimpleGrid>
     </>
   );
