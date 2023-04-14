@@ -11,6 +11,7 @@ import { useGenres, useStore } from "../hooks";
 import { getCroppedImageUrl } from "../utils";
 
 export default function GenreList() {
+  const selectedGenre = useStore((state) => state.selectedGenre);
   const setSelectedGenre = useStore((state) => state.setSelectedGenre);
 
   const { loading, data: genres, error } = useGenres();
@@ -32,6 +33,7 @@ export default function GenreList() {
             />
             <Button
               fontSize="lg"
+              fontWeight={selectedGenre.id === genre.id ? "bold" : "normal"}
               onClick={() => handleGenreClick(genre)}
               variant="link">
               {genre.name}
