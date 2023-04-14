@@ -1,4 +1,4 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Alert, AlertIcon, SimpleGrid, Text } from "@chakra-ui/react";
 
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -11,8 +11,21 @@ const skeletons = Array(12)
 
 export default function GameGrid() {
   const selectedGenre = useStore((state) => state.selectedGenre);
+  const selectedPlatform = useStore((state) => state.selectedPlatform);
 
-  const { loading, data: games, error } = useGames(selectedGenre);
+  const {
+    loading,
+    data: games,
+    error
+  } = useGames(selectedGenre, selectedPlatform);
+
+  if (games.length === 0)
+    return (
+      <Alert status="info" mt={2} width="95%">
+        <AlertIcon />
+        There are no games with the selected criteria.
+      </Alert>
+    );
 
   return (
     <>
