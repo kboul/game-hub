@@ -35,7 +35,9 @@ export default function GenreList() {
               fontSize="lg"
               fontWeight={selectedGenre.id === genre.id ? "bold" : "normal"}
               onClick={() => handleGenreClick(genre)}
-              variant="link">
+              variant="link"
+              whiteSpace="normal"
+              textAlign="left">
               {genre.name}
             </Button>
           </HStack>
