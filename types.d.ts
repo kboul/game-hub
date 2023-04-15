@@ -17,3 +17,9 @@ type Genre = {
   image_background: string;
   name: string;
 };
+
+type Platform = {
+  id: numnber;
+  name: string;
+  slug: string;
+};
