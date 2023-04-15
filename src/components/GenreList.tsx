@@ -1,6 +1,7 @@
 import {
   Button,
   HStack,
+  Heading,
   Image,
   List,
   ListItem,
@@ -22,25 +23,33 @@ export default function GenreList() {
   const handleGenreClick = (genre: Genre) => setSelectedGenre(genre);
 
   return (
-    <List>
-      {genres.map((genre) => (
-        <ListItem key={genre.id} paddingY="5px">
-          <HStack>
-            <Image
-              borderRadius={8}
-              boxSize="32px"
-              src={getCroppedImageUrl(genre.image_background)}
-            />
-            <Button
-              fontSize="lg"
-              fontWeight={selectedGenre.id === genre.id ? "bold" : "normal"}
-              onClick={() => handleGenreClick(genre)}
-              variant="link">
-              {genre.name}
-            </Button>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Heading fontSize="xl" marginY={3}>
+        Genres
+      </Heading>
+      <List>
+        {genres.map((genre) => (
+          <ListItem key={genre.id} paddingY="5px">
+            <HStack>
+              <Image
+                borderRadius={8}
+                boxSize="32px"
+                objectFit="cover"
+                src={getCroppedImageUrl(genre.image_background)}
+              />
+              <Button
+                fontSize="lg"
+                fontWeight={selectedGenre.id === genre.id ? "bold" : "normal"}
+                onClick={() => handleGenreClick(genre)}
+                variant="link"
+                whiteSpace="normal"
+                textAlign="left">
+                {genre.name}
+              </Button>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>{" "}
+    </>
   );
 }
