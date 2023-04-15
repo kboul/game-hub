@@ -4,12 +4,14 @@ interface GameQuery {
   selectedGenre: Genre;
   selectedPlatform: Platform;
   selectedSortOrder: string;
+  searchedGame: string;
 }
 
 export default function useGames(gameQuery: GameQuery) {
   const genreId = gameQuery.selectedGenre.id;
   const platformId = gameQuery.selectedPlatform.id;
   const sortOrder = gameQuery.selectedSortOrder;
+  const searchedGameText = gameQuery.searchedGame;
 
   return useData<Game>(
     "/games",
@@ -17,9 +19,10 @@ export default function useGames(gameQuery: GameQuery) {
       params: {
         genres: genreId,
         platforms: platformId,
-        ordering: gameQuery.selectedSortOrder
+        ordering: gameQuery.selectedSortOrder,
+        search: searchedGameText
       }
     },
-    [genreId, platformId, sortOrder]
+    [genreId, platformId, sortOrder, searchedGameText]
   );
 }
