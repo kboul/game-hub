@@ -13,3 +13,9 @@ VITE_RAWG_API_KEY=yourAPIKey
 ```
 npm run dev
 ```
+
+or
+
+```
+pnpm dev
+```
