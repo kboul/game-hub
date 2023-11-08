@@ -1,4 +1,5 @@
 const queryKeys = {
+  games: ["games"],
   genres: ["genres"],
   platforms: ["platforms"]
 };

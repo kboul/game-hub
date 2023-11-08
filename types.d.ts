@@ -22,12 +22,6 @@ type Genre = {
   slug: string;
 };
 
-type Platform = {
-  id: numnber;
-  name: string;
-  slug: string;
-};
-
 type FetchResponse<T> = {
   count: number;
   results: T[];
