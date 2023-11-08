@@ -1,5 +1,6 @@
 const queryKeys = {
-  genres: ["genres"]
+  genres: ["genres"],
+  platforms: ["platforms"]
 };
 
 export { queryKeys };
