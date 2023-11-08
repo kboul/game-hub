@@ -15,10 +15,10 @@ export default function GenreList() {
   const selectedGenre = useStore((state) => state.selectedGenre);
   const setSelectedGenre = useStore((state) => state.setSelectedGenre);
 
-  const { loading, data: genres, error } = useGenres();
+  const { isLoading, data, error } = useGenres();
 
   if (error) return null;
-  if (loading) return <Spinner />;
+  if (isLoading) return <Spinner />;
 
   const handleGenreClick = (genre: Genre) => setSelectedGenre(genre);
 
@@ -28,7 +28,7 @@ export default function GenreList() {
         Genres
       </Heading>
       <List>
-        {genres.map((genre) => (
+        {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image

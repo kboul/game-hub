@@ -25,3 +25,8 @@ type Platform = {
   name: string;
   slug: string;
 };
+
+type FetchResponse<T> = {
+  count: number;
+  results: T[];
+};

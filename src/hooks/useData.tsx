@@ -3,11 +3,6 @@ import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import { AxiosRequestConfig, CanceledError } from "axios";
 
-interface FetchResponse<T> {
-  count: number;
-  results: T[];
-}
-
 export default function useData<T>(
   endpoint: string,
   requestConfig?: AxiosRequestConfig,
