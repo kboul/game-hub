@@ -7,3 +7,15 @@ A react typescript app to browse movies using rawg.io API.
 ```
 VITE_RAWG_API_KEY=yourAPIKey
 ```
+
+## Run the app
+
+```
+npm run dev
+```
+
+or
+
+```
+pnpm dev
+```

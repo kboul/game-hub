@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Box, Flex, Grid, GridItem, Show } from "@chakra-ui/react";
 
 import {
   GameHeading,
@@ -23,13 +23,13 @@ export default function App() {
       <GridItem area="nav">
         <Navbar />
       </GridItem>
-      {
-        <Show above="lg">
-          <GridItem area="aside" paddingX={5}>
-            <GenreList />
-          </GridItem>
-        </Show>
-      }
+
+      <Show above="lg">
+        <GridItem area="aside" paddingX={5}>
+          <GenreList />
+        </GridItem>
+      </Show>
+
       <GridItem area="main">
         <Box paddingLeft={2}>
           <GameHeading />

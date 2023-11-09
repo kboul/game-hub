@@ -22,7 +22,7 @@ export default function GameGrid() {
     searchedGame
   };
 
-  const { loading, data: games, error } = useGames(gameQuery);
+  const { isLoading, data, error } = useGames(gameQuery);
 
   const NoGamesAlert = (
     <Alert status="info" mt={2} width="50%" marginLeft={2}>
@@ -34,7 +34,7 @@ export default function GameGrid() {
   const showNoGamesAlert = Boolean(
     (Object.keys(selectedPlatform).length > 0 ||
       Object.keys(selectedSortOrder).length) &&
-      games.length === 0
+      data?.results.length === 0
   );
 
   let content = (
@@ -42,19 +42,19 @@ export default function GameGrid() {
       columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
       padding="10px"
       spacing={6}>
-      {loading &&
+      {isLoading &&
         skeletons.map((skeleton) => (
           <GameCardContainer key={skeleton}>
             <GameCardSkeleton />
           </GameCardContainer>
         ))}
-      {games.map((game) => (
+      {data?.results.map((game) => (
         <GameCard game={game} key={game.id} />
       ))}
     </SimpleGrid>
   );
 
-  if (error) content = <Text>{error}</Text>;
+  if (error) content = <Text>{error.message}</Text>;
   if (showNoGamesAlert) content = NoGamesAlert;
 
   return content;
