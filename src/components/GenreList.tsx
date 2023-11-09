@@ -35,7 +35,7 @@ export default function GenreList() {
                 borderRadius={8}
                 boxSize="32px"
                 objectFit="cover"
-                src={getCroppedImageUrl(genre.image_background)}
+                src={getCroppedImageUrl(genre.platforms[0].image_background)}
               />
               <Button
                 fontSize="lg"

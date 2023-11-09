@@ -17,7 +17,7 @@ type Platform = {
 type Genre = {
   games_count: number;
   id: number;
-  image_background: string;
+  platforms: { image_background: string }[];
   name: string;
   slug: string;
 };
