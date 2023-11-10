@@ -6,33 +6,35 @@ import { queryKeys } from "../constants";
 const apiClient = new ApiClient<Game>("/games");
 
 interface GameQuery {
-  selectedGenre: Genre;
-  selectedPlatform: Platform;
+  selectedGenreId: GenreId;
+  selectedPlatformId: PlatformId;
   selectedSortOrder: string;
   searchedGame: string;
 }
 
 export default function useGames(gameQuery: GameQuery) {
-  const genreId = gameQuery.selectedGenre.id;
-  const platformId = gameQuery.selectedPlatform.id;
-  const sortOrder = gameQuery.selectedSortOrder;
-  const searchedGameText = gameQuery.searchedGame;
+  const {
+    selectedGenreId,
+    selectedPlatformId,
+    selectedSortOrder,
+    searchedGame
+  } = gameQuery;
 
   return useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: [
       ...queryKeys.games,
-      genreId,
-      platformId,
-      sortOrder,
-      searchedGameText
+      { genreId: selectedGenreId },
+      { platformId: selectedPlatformId },
+      { sortOrder: selectedSortOrder },
+      { searchedGame }
     ],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
         params: {
-          genres: genreId,
-          parent_platforms: platformId,
-          ...(sortOrder && { ordering: sortOrder }), // conditonally add ordering param to the request
-          ...(searchedGameText && { search: searchedGameText }), // conditonally add search param to the request
+          genres: selectedGenreId,
+          parent_platforms: selectedPlatformId,
+          ...(selectedSortOrder && { ordering: selectedSortOrder }), // conditonally add ordering param to the request
+          ...(searchedGame && { search: searchedGame }), // conditonally add search param to the request
           page: pageParam
         }
       }),

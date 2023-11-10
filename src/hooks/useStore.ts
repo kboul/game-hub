@@ -2,10 +2,10 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
 interface StoreState {
-  selectedGenre: Genre;
-  setSelectedGenre: (genre: Genre) => void;
-  selectedPlatform: Platform;
-  setSelectedPlatform: (platform: Platform) => void;
+  selectedGenreId: GenreId;
+  setSelectedGenreId: (genreId: GenreId) => void;
+  selectedPlatformId: PlatformId;
+  setSelectedPlatformId: (platformId: PlatformId) => void;
   selectedSortOrder: string;
   setSelectedSortOrder: (sortOrder: string) => void;
   searchedGame: string;
@@ -14,10 +14,11 @@ interface StoreState {
 
 const useStore = create<StoreState>()(
   devtools((set) => ({
-    selectedGenre: {} as Genre,
-    setSelectedGenre: (genre) => set({ selectedGenre: genre }),
-    selectedPlatform: {} as Platform,
-    setSelectedPlatform: (platform) => set({ selectedPlatform: platform }),
+    selectedGenreId: undefined as GenreId,
+    setSelectedGenreId: (genreId) => set({ selectedGenreId: genreId }),
+    selectedPlatformId: undefined as PlatformId,
+    setSelectedPlatformId: (platformId) =>
+      set({ selectedPlatformId: platformId }),
     selectedSortOrder: "",
     setSelectedSortOrder: (sortOrder) => set({ selectedSortOrder: sortOrder }),
     searchedGame: "",
