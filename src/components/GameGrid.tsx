@@ -1,4 +1,12 @@
-import { Alert, AlertIcon, SimpleGrid, Text } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Button,
+  SimpleGrid,
+  Text
+} from "@chakra-ui/react";
+import { Fragment } from "react";
 
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -22,7 +30,14 @@ export default function GameGrid() {
     searchedGame
   };
 
-  const { isLoading, data, error } = useGames(gameQuery);
+  const {
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    data,
+    error
+  } = useGames(gameQuery);
 
   const NoGamesAlert = (
     <Alert status="info" mt={2} width="50%" marginLeft={2}>
@@ -31,27 +46,35 @@ export default function GameGrid() {
     </Alert>
   );
 
-  const showNoGamesAlert = Boolean(
-    (Object.keys(selectedPlatform).length > 0 ||
-      Object.keys(selectedSortOrder).length) &&
-      data?.results.length === 0
-  );
+  const showNoGamesAlert = Boolean(data?.pages[0].results.length === 0);
 
   let content = (
-    <SimpleGrid
-      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-      padding="10px"
-      spacing={6}>
-      {isLoading &&
-        skeletons.map((skeleton) => (
-          <GameCardContainer key={skeleton}>
-            <GameCardSkeleton />
-          </GameCardContainer>
+    <Box padding="10px">
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={6}>
+        {isLoading &&
+          skeletons.map((skeleton) => (
+            <GameCardContainer key={skeleton}>
+              <GameCardSkeleton />
+            </GameCardContainer>
+          ))}
+
+        {data?.pages.map((page, index) => (
+          <Fragment key={index}>
+            {page.results.map((game) => (
+              <GameCardContainer key={game.id}>
+                <GameCard game={game} />
+              </GameCardContainer>
+            ))}
+          </Fragment>
         ))}
-      {data?.results.map((game) => (
-        <GameCard game={game} key={game.id} />
-      ))}
-    </SimpleGrid>
+      </SimpleGrid>
+
+      {hasNextPage && (
+        <Button marginY={5} onClick={() => fetchNextPage()}>
+          {isFetchingNextPage ? "Loading..." : "Load More"}
+        </Button>
+      )}
+    </Box>
   );
 
   if (error) content = <Text>{error.message}</Text>;
