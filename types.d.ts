@@ -17,7 +17,7 @@ type Platform = {
 type Genre = {
   games_count: number;
   id: number;
-  platforms: { image_background: string }[];
+  image_background: string;
   name: string;
   slug: string;
 };
@@ -28,3 +28,5 @@ type FetchResponse<T> = {
   next: string | null;
   previous: string | null;
 };
+
+type GenreId = number | undefined;

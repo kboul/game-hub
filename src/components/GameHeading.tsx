@@ -1,13 +1,18 @@
 import { Heading } from "@chakra-ui/react";
 
-import { useStore } from "../hooks";
+import { useGenres, useStore } from "../hooks";
 
 export default function GameHeading() {
-  const selectedGenre = useStore((state) => state.selectedGenre);
+  const { data: genres } = useGenres();
+  const selectedGenreId = useStore((state) => state.selectedGenreId);
   const selectedPlatform = useStore((state) => state.selectedPlatform);
 
+  const selectedGenre = genres?.results.find(
+    ({ id }) => id === selectedGenreId
+  );
+
   const heading = `${selectedPlatform.name ?? ""} ${
-    selectedGenre.name ?? ""
+    selectedGenre?.name ?? ""
   } Games`;
 
   return (

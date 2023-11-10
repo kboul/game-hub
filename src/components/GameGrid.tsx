@@ -12,26 +12,20 @@ const skeletons = Array(12)
   .map((_, i) => i + 1);
 
 export default function GameGrid() {
-  const selectedGenre = useStore((state) => state.selectedGenre);
+  const selectedGenreId = useStore((state) => state.selectedGenreId);
   const selectedPlatform = useStore((state) => state.selectedPlatform);
   const selectedSortOrder = useStore((state) => state.selectedSortOrder);
   const searchedGame = useStore((state) => state.searchedGame);
 
   const gameQuery = {
-    selectedGenre,
+    selectedGenreId,
     selectedPlatform,
     selectedSortOrder,
     searchedGame
   };
 
-  const {
-    isLoading,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-    data,
-    error
-  } = useGames(gameQuery);
+  const { isLoading, fetchNextPage, hasNextPage, data, error } =
+    useGames(gameQuery);
 
   const NoGamesAlert = (
     <Alert status="info" mt={2} width="50%" marginLeft={2}>

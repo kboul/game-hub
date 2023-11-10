@@ -12,15 +12,15 @@ import { useGenres, useStore } from "../hooks";
 import { getCroppedImageUrl } from "../utils";
 
 export default function GenreList() {
-  const selectedGenre = useStore((state) => state.selectedGenre);
-  const setSelectedGenre = useStore((state) => state.setSelectedGenre);
+  const selectedGenreId = useStore((state) => state.selectedGenreId);
+  const setSelectedGenreId = useStore((state) => state.setSelectedGenreId);
 
   const { isLoading, data, error } = useGenres();
 
   if (error) return null;
   if (isLoading) return <Spinner />;
 
-  const handleGenreClick = (genre: Genre) => setSelectedGenre(genre);
+  const handleGenreClick = (genre: Genre) => setSelectedGenreId(genre.id);
 
   return (
     <>
@@ -35,11 +35,11 @@ export default function GenreList() {
                 borderRadius={8}
                 boxSize="32px"
                 objectFit="cover"
-                src={getCroppedImageUrl(genre.platforms[0].image_background)}
+                src={getCroppedImageUrl(genre.image_background)}
               />
               <Button
                 fontSize="lg"
-                fontWeight={selectedGenre.id === genre.id ? "bold" : "normal"}
+                fontWeight={selectedGenreId === genre.id ? "bold" : "normal"}
                 onClick={() => handleGenreClick(genre)}
                 variant="link"
                 whiteSpace="normal"
