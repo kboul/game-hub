@@ -1,12 +1,6 @@
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Button,
-  SimpleGrid,
-  Text
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
 import { Fragment } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -47,10 +41,19 @@ export default function GameGrid() {
   );
 
   const showNoGamesAlert = Boolean(data?.pages[0].results.length === 0);
+  const fetchedGamesCount =
+    data?.pages.reduce((total, page) => total + page.results.length, 0) ?? 0;
 
   let content = (
-    <Box padding="10px">
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={6}>
+    <InfiniteScroll
+      dataLength={fetchedGamesCount}
+      hasMore={!!hasNextPage}
+      loader={<Spinner />}
+      next={() => fetchNextPage()}>
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
+        padding="10px"
+        spacing={6}>
         {isLoading &&
           skeletons.map((skeleton) => (
             <GameCardContainer key={skeleton}>
@@ -68,13 +71,7 @@ export default function GameGrid() {
           </Fragment>
         ))}
       </SimpleGrid>
-
-      {hasNextPage && (
-        <Button marginY={5} onClick={() => fetchNextPage()}>
-          {isFetchingNextPage ? "Loading..." : "Load More"}
-        </Button>
-      )}
-    </Box>
+    </InfiniteScroll>
   );
 
   if (error) content = <Text>{error.message}</Text>;
