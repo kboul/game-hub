@@ -30,3 +30,4 @@ type FetchResponse<T> = {
 };
 
 type GenreId = number | undefined;
+type PlatformId = number | undefined;

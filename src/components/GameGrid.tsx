@@ -13,13 +13,13 @@ const skeletons = Array(12)
 
 export default function GameGrid() {
   const selectedGenreId = useStore((state) => state.selectedGenreId);
-  const selectedPlatform = useStore((state) => state.selectedPlatform);
+  const selectedPlatformId = useStore((state) => state.selectedPlatformId);
   const selectedSortOrder = useStore((state) => state.selectedSortOrder);
   const searchedGame = useStore((state) => state.searchedGame);
 
   const gameQuery = {
     selectedGenreId,
-    selectedPlatform,
+    selectedPlatformId,
     selectedSortOrder,
     searchedGame
   };
