@@ -8,12 +8,4 @@ const getCroppedImageUrl = (url: string) => {
   return url.slice(0, index) + "crop/600/400/" + url.slice(index);
 };
 
-const getSelectedItem = (
-  array: any[] | undefined,
-  selectedId: number | undefined
-) => {
-  if (!array || !selectedId) return {};
-  return array?.find(({ id }) => id === selectedId);
-};
-
-export { getCroppedImageUrl, getSelectedItem };
+export { getCroppedImageUrl };

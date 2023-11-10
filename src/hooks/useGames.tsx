@@ -25,8 +25,8 @@ export default function useGames(gameQuery: GameQuery) {
       ...queryKeys.games,
       { genreId: selectedGenreId },
       { platformId: selectedPlatformId },
-      selectedSortOrder,
-      searchedGame
+      { sortOrder: selectedSortOrder },
+      { searchedGame }
     ],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
