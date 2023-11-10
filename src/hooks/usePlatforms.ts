@@ -7,7 +7,7 @@ const apiClient = new ApiClient<Platform>("/platforms/lists/parents");
 
 export default function usePlatforms() {
   return useQuery({
-    queryKey: queryKeys.genres,
+    queryKey: queryKeys.platforms,
     queryFn: apiClient.getAll
     // staleTime: 24 * 60 * 60 * 1000 // 1 day
   });
