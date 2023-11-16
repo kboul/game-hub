@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
 interface StoreState {
   selectedGenreId: GenreId;
@@ -12,18 +12,19 @@ interface StoreState {
   setSearchedGame: (game: string) => void;
 }
 
-const useStore = create<StoreState>()(
-  devtools((set) => ({
-    selectedGenreId: undefined as GenreId,
-    setSelectedGenreId: (genreId) => set({ selectedGenreId: genreId }),
-    selectedPlatformId: undefined as PlatformId,
-    setSelectedPlatformId: (platformId) =>
-      set({ selectedPlatformId: platformId }),
-    selectedSortOrder: "",
-    setSelectedSortOrder: (sortOrder) => set({ selectedSortOrder: sortOrder }),
-    searchedGame: "",
-    setSearchedGame: (game) => set({ searchedGame: game })
-  }))
-);
+const useStore = create<StoreState>((set) => ({
+  selectedGenreId: undefined as GenreId,
+  setSelectedGenreId: (genreId) => set({ selectedGenreId: genreId }),
+  selectedPlatformId: undefined as PlatformId,
+  setSelectedPlatformId: (platformId) =>
+    set({ selectedPlatformId: platformId }),
+  selectedSortOrder: "",
+  setSelectedSortOrder: (sortOrder) => set({ selectedSortOrder: sortOrder }),
+  searchedGame: "",
+  setSearchedGame: (game) => set({ searchedGame: game })
+}));
+
+if (process.env.NODE_ENV === "development")
+  mountStoreDevtool("Store", useStore);
 
 export default useStore;
