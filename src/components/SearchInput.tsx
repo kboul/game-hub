@@ -1,5 +1,5 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import { useStore } from "../hooks";
@@ -7,13 +7,12 @@ import { useStore } from "../hooks";
 const formStyle = { width: "100%" };
 
 export default function SearchInput() {
-  const [searchedGameText, setSearchedGameText] = useState("");
-
+  const ref = useRef<HTMLInputElement>(null);
   const setSearchedGame = useStore((state) => state.setSearchedGame);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearchedGame(searchedGameText);
+    if (ref.current) setSearchedGame(ref.current.value);
   };
 
   return (
@@ -22,9 +21,8 @@ export default function SearchInput() {
         <InputLeftElement children={<BsSearch />} />
         <Input
           borderRadius={20}
-          onChange={(e) => setSearchedGameText(e.target.value)}
           placeholder="Search games..."
-          value={searchedGameText}
+          ref={ref}
           variant="filled"
         />
       </InputGroup>
