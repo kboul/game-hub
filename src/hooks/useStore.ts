@@ -21,7 +21,13 @@ const useStore = create<StoreState>((set) => ({
   selectedSortOrder: "",
   setSelectedSortOrder: (sortOrder) => set({ selectedSortOrder: sortOrder }),
   searchedGame: "",
-  setSearchedGame: (game) => set({ searchedGame: game })
+  setSearchedGame: (game) =>
+    set({
+      searchedGame: game,
+      selectedSortOrder: "",
+      selectedGenreId: undefined,
+      selectedPlatformId: undefined
+    })
 }));
 
 if (process.env.NODE_ENV === "development")
