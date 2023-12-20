@@ -49,7 +49,7 @@ export default function GenreList() {
             </HStack>
           </ListItem>
         ))}
-      </List>{" "}
+      </List>
     </>
   );
 }
