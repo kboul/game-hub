@@ -1,24 +1,16 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import ApiClient from "../api/apiClient";
+import useStore from "./useStore";
 import { queryKeys } from "../constants";
 
 const apiClient = new ApiClient<Game>("/games");
 
-interface GameQuery {
-  selectedGenreId: GenreId;
-  selectedPlatformId: PlatformId;
-  selectedSortOrder: string;
-  searchedGame: string;
-}
-
-export default function useGames(gameQuery: GameQuery) {
-  const {
-    selectedGenreId,
-    selectedPlatformId,
-    selectedSortOrder,
-    searchedGame
-  } = gameQuery;
+export default function useGames() {
+  const selectedGenreId = useStore((state) => state.selectedGenreId);
+  const selectedPlatformId = useStore((state) => state.selectedPlatformId);
+  const selectedSortOrder = useStore((state) => state.selectedSortOrder);
+  const searchedGame = useStore((state) => state.searchedGame);
 
   return useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: [

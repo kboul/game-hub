@@ -5,27 +5,14 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
-import { useGames, useStore } from "../hooks";
+import { useGames } from "../hooks";
 
 const skeletons = Array(12)
   .fill(undefined)
   .map((_, i) => i + 1);
 
 export default function GameGrid() {
-  const selectedGenreId = useStore((state) => state.selectedGenreId);
-  const selectedPlatformId = useStore((state) => state.selectedPlatformId);
-  const selectedSortOrder = useStore((state) => state.selectedSortOrder);
-  const searchedGame = useStore((state) => state.searchedGame);
-
-  const gameQuery = {
-    selectedGenreId,
-    selectedPlatformId,
-    selectedSortOrder,
-    searchedGame
-  };
-
-  const { isLoading, fetchNextPage, hasNextPage, data, error } =
-    useGames(gameQuery);
+  const { isLoading, fetchNextPage, hasNextPage, data, error } = useGames();
 
   const NoGamesAlert = (
     <Alert status="info" mt={2} width="50%" marginLeft={2}>
