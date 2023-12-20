@@ -8,12 +8,14 @@ import {
   Spinner
 } from "@chakra-ui/react";
 
-import { useGenres, useStore } from "../hooks";
+import { useGenres, useGameQueryStore } from "../hooks";
 import { getCroppedImageUrl } from "../utils";
 
 export default function GenreList() {
-  const selectedGenreId = useStore((state) => state.selectedGenreId);
-  const setSelectedGenreId = useStore((state) => state.setSelectedGenreId);
+  const selectedGenreId = useGameQueryStore((state) => state.gameQuery.genreId);
+  const setSelectedGenreId = useGameQueryStore(
+    (state) => state.setSelectedGenreId
+  );
 
   const { isLoading, data, error } = useGenres();
 

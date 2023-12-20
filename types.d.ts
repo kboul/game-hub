@@ -28,6 +28,3 @@ type FetchResponse<T> = {
   next: string | null;
   previous: string | null;
 };
-
-type GenreId = number | undefined;
-type PlatformId = number | undefined;

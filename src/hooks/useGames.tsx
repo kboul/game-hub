@@ -1,32 +1,23 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import ApiClient from "../api/apiClient";
-import useStore from "./useStore";
+import useGameQueryStore from "./useGameQueryStore";
 import { queryKeys } from "../constants";
 
 const apiClient = new ApiClient<Game>("/games");
 
 export default function useGames() {
-  const selectedGenreId = useStore((state) => state.selectedGenreId);
-  const selectedPlatformId = useStore((state) => state.selectedPlatformId);
-  const selectedSortOrder = useStore((state) => state.selectedSortOrder);
-  const searchedGame = useStore((state) => state.searchedGame);
+  const gameQuery = useGameQueryStore((state) => state.gameQuery);
 
   return useInfiniteQuery<FetchResponse<Game>, Error>({
-    queryKey: [
-      ...queryKeys.games,
-      { genreId: selectedGenreId },
-      { platformId: selectedPlatformId },
-      { sortOrder: selectedSortOrder },
-      { searchedGame }
-    ],
+    queryKey: [...queryKeys.games, gameQuery],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
         params: {
-          genres: selectedGenreId,
-          parent_platforms: selectedPlatformId,
-          ...(selectedSortOrder && { ordering: selectedSortOrder }), // conditonally add ordering param to the request
-          ...(searchedGame && { search: searchedGame }), // conditonally add search param to the request
+          genres: gameQuery.genreId,
+          parent_platforms: gameQuery.platformId,
+          ordering: gameQuery.sortOrder,
+          search: gameQuery.searchedGame,
           page: pageParam
         }
       }),
