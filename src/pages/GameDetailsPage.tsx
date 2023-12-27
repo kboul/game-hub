@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, Button, Heading, Spinner, Text } from "@chakra-ui/react";
 
+import { GameAttributes } from "../components";
 import { useGameDetails } from "../hooks";
-import { useState } from "react";
 
 export default function GameDetailsPage() {
   const { id } = useParams();
@@ -28,6 +29,10 @@ export default function GameDetailsPage() {
       </Button>
 
       <Box marginTop={5}>
+        <GameAttributes game={game} />
+      </Box>
+
+      <Box marginTop={10}>
         <Link to="/">Go back</Link>
       </Box>
     </>

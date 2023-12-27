@@ -33,5 +33,15 @@ type FetchResponse<T> = {
 type GameDetails = {
   description: string;
   description_raw: string;
+  genres: Genre[];
+  metacritic: number;
   name: string;
+  platforms: { platform: Platform }[];
+  publishers: Publisher[];
+};
+
+type Publisher = {
+  id: number;
+  name: string;
+  slug: string;
 };
