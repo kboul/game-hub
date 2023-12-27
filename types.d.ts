@@ -6,6 +6,7 @@ type Game = {
   parent_platforms: { platform: Platform }[];
   rating_top: number; // integer
   rating: number; // floating
+  slug: string;
 };
 
 type Platform = {
@@ -27,4 +28,10 @@ type FetchResponse<T> = {
   results: T[];
   next: string | null;
   previous: string | null;
+};
+
+type GameDetails = {
+  description: string;
+  description_raw: string;
+  name: string;
 };
