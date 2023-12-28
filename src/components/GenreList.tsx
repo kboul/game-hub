@@ -21,8 +21,12 @@ export default function GenreList() {
   if (error) return null;
   if (isLoading) return <Spinner />;
 
-  const handleGenreClick = (genre: Genre) =>
-    setSearchParams({ genreId: String(genre.id) });
+  const handleGenreClick = (genre: Genre) => {
+    setSearchParams((searchParams) => {
+      searchParams.set("genreId", String(genre.id));
+      return searchParams;
+    });
+  };
 
   return (
     <>

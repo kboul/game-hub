@@ -1,23 +1,25 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
-import { useGameQueryStore, usePlatforms, usePlatform } from "../hooks";
+import { usePlatforms, usePlatform, useSearchParam } from "../hooks";
+import { useSearchParams } from "react-router-dom";
 
 export default function PlatformSelector() {
-  const selectedPlatformId = useGameQueryStore(
-    (state) => state.gameQuery.platformId
-  );
-  const selectedPlatform = usePlatform(selectedPlatformId);
+  const [_, setSearchParams] = useSearchParams();
 
-  const setSelectedPlatformId = useGameQueryStore(
-    (state) => state.setSelectedPlatformId
-  );
+  const platformId = useSearchParam("platformId");
+  const selectedPlatform = usePlatform(platformId!);
+
   const { data, error } = usePlatforms();
 
   if (error) return null;
 
-  const handlePlatformClick = (platformId: number) =>
-    setSelectedPlatformId(platformId);
+  const handlePlatformClick = (platformId: number) => {
+    setSearchParams((searchParams) => {
+      searchParams.set("platformId", String(platformId));
+      return searchParams;
+    });
+  };
 
   return (
     <Menu>
