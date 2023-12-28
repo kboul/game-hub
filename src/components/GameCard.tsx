@@ -1,4 +1,5 @@
 import { Card, CardBody, HStack, Heading, Image } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import CriticScore from "./CriticScore";
 import GameCardContainer from "./GameCardContainer";
@@ -15,9 +16,13 @@ interface GameCardProps {
   overflow hidden property */
 
 export default function GameCard({ game }: GameCardProps) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => navigate(`/games/${game.slug}`);
+
   return (
     <GameCardContainer>
-      <Card>
+      <Card onClick={handleCardClick} cursor="pointer">
         <Image src={getCroppedImageUrl(game.background_image)} />
         <CardBody>
           <HStack justifyContent="space-between" marginBottom={3}>
