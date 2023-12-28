@@ -1,4 +1,5 @@
 export { default as GameAttributes } from "./GameAttributes";
+export { default as GameTrailers } from "./GameTrailers";
 export { default as GameGrid } from "./GameGrid";
 export { default as GameHeading } from "./GameHeading";
 export { default as GenreList } from "./GenreList";

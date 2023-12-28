@@ -34,14 +34,26 @@ type GameDetails = {
   description: string;
   description_raw: string;
   genres: Genre[];
+  id: number;
   metacritic: number;
   name: string;
   platforms: { platform: Platform }[];
   publishers: Publisher[];
+  slug: string;
 };
 
 type Publisher = {
   id: number;
   name: string;
   slug: string;
+};
+
+type Trailer = {
+  id: number;
+  name: string;
+  preview: string;
+  data: {
+    480: string;
+    max: string;
+  };
 };

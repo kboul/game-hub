@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, Button, Heading, Spinner, Text } from "@chakra-ui/react";
 
-import { GameAttributes } from "../components";
+import { GameAttributes, GameTrailers } from "../components";
 import { useGameDetails } from "../hooks";
 
 export default function GameDetailsPage() {
@@ -32,8 +32,14 @@ export default function GameDetailsPage() {
         <GameAttributes game={game} />
       </Box>
 
-      <Box marginTop={10}>
-        <Link to="/">Go back</Link>
+      <Box>
+        <GameTrailers gameId={game.id} />
+      </Box>
+
+      <Box marginTop={5}>
+        <Button as={Link} to="/">
+          Go back
+        </Button>
       </Box>
     </>
   );

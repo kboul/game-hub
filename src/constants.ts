@@ -1,7 +1,8 @@
 const queryKeys = {
   games: ["games"],
   genres: ["genres"],
-  platforms: ["platforms"]
+  platforms: ["platforms"],
+  trailers: ["trailers"]
 };
 
 export { queryKeys };
