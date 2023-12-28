@@ -5,8 +5,6 @@ import { Navbar } from "../components";
 export default function ErrorPage() {
   const error = useRouteError();
 
-  console.log(error);
-
   const errorText = isRouteErrorResponse(error)
     ? "This page does not exist."
     : "An unexpected error occured.";
