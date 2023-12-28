@@ -7,22 +7,22 @@ import {
   ListItem,
   Spinner
 } from "@chakra-ui/react";
+import { useSearchParams } from "react-router-dom";
 
-import { useGenres, useGameQueryStore } from "../hooks";
+import { useGenres, useSearchParam } from "../hooks";
 import { getCroppedImageUrl } from "../utils";
 
 export default function GenreList() {
-  const selectedGenreId = useGameQueryStore((state) => state.gameQuery.genreId);
-  const setSelectedGenreId = useGameQueryStore(
-    (state) => state.setSelectedGenreId
-  );
+  const [_, setSearchParams] = useSearchParams();
+  const genreId = useSearchParam("genreId");
 
   const { isLoading, data, error } = useGenres();
 
   if (error) return null;
   if (isLoading) return <Spinner />;
 
-  const handleGenreClick = (genre: Genre) => setSelectedGenreId(genre.id);
+  const handleGenreClick = (genre: Genre) =>
+    setSearchParams({ genreId: String(genre.id) });
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function GenreList() {
               />
               <Button
                 fontSize="lg"
-                fontWeight={selectedGenreId === genre.id ? "bold" : "normal"}
+                fontWeight={genreId === String(genre.id) ? "bold" : "normal"}
                 onClick={() => handleGenreClick(genre)}
                 variant="link"
                 whiteSpace="normal"

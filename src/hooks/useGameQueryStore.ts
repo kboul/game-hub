@@ -2,7 +2,6 @@ import { create } from "zustand";
 import { mountStoreDevtool } from "simple-zustand-devtools";
 
 interface GameQuery {
-  genreId?: number;
   platformId?: number;
   sortOrder?: string;
   searchedGame?: string;
@@ -10,7 +9,6 @@ interface GameQuery {
 
 interface GameQueryStore {
   gameQuery: GameQuery;
-  setSelectedGenreId: (genreId: number) => void;
   setSelectedPlatformId: (platformId: number) => void;
   setSelectedSortOrder: (sortOrder: string) => void;
   setSearchedGame: (searchedGame: string) => void;
@@ -18,8 +16,6 @@ interface GameQueryStore {
 
 const useGameQueryStore = create<GameQueryStore>((set) => ({
   gameQuery: {} as GameQuery,
-  setSelectedGenreId: (genreId) =>
-    set((store) => ({ gameQuery: { ...store.gameQuery, genreId } })),
   setSelectedPlatformId: (platformId) =>
     set((store) => ({ gameQuery: { ...store.gameQuery, platformId } })),
   setSelectedSortOrder: (sortOrder) =>
