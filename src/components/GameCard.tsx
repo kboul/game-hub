@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import CriticScore from "./CriticScore";
 import GameCardContainer from "./GameCardContainer";
+import Emoji from "./Emoji";
 import PlatformIconList from "./PlatformIconList";
 import { getCroppedImageUrl } from "../utils";
-import Emoji from "./Emoji";
 
-interface GameCardProps {
-  game: Game;
-}
+type GameCardProps = { game: Game };
 
 /* because this image is bigger than its container we 
   only take round corners on the bottom and need to apply 

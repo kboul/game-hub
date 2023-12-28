@@ -19,7 +19,3 @@ or
 ```
 pnpm dev
 ```
-
-# Zustand dev tools
-
-Go to react components and check devtool on top of the DOM tree with the name of the store (Store in our case) to see the store variables.
