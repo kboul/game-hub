@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Box, Button, Heading, Spinner, Text } from "@chakra-ui/react";
 
-import { GameAttributes, GameTrailers } from "../components";
+import { GameAttributes, GameScreenshots, GameTrailers } from "../components";
 import { useGameDetails } from "../hooks";
 
 export default function GameDetailsPage() {
@@ -27,13 +27,16 @@ export default function GameDetailsPage() {
         variant="solid">
         Show {isTruncated ? "more" : "less"}
       </Button>
-
       <Box marginTop={5}>
         <GameAttributes game={game} />
       </Box>
 
-      <Box>
+      <Box display="flex" justifyContent="center" marginTop={5}>
         <GameTrailers gameId={game.id} />
+      </Box>
+
+      <Box marginTop={5}>
+        <GameScreenshots gameId={game.id} />
       </Box>
 
       <Box marginTop={5}>

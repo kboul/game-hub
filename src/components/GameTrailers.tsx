@@ -1,12 +1,17 @@
-import { Alert, AlertIcon, Box, Spinner } from "@chakra-ui/react";
+import { Alert, AlertIcon, Spinner } from "@chakra-ui/react";
 import { useGameTrailers } from "../hooks";
 
 export default function GameTrailers({ gameId }: { gameId: number }) {
   const { data, isLoading, isError } = useGameTrailers(gameId);
-  console.log(data?.results);
 
   if (isLoading) return <Spinner />;
-  if (isError) return <p>Something went wrong</p>;
+  if (isError)
+    return (
+      <Alert status="error" marginTop={5}>
+        <AlertIcon />
+        Something went wrong.
+      </Alert>
+    );
 
   const trailers = data?.results;
 
@@ -22,12 +27,10 @@ export default function GameTrailers({ gameId }: { gameId: number }) {
   if (!firstTrailer) return null;
 
   return (
-    <Box display="flex" justifyContent="center" marginTop={5}>
-      <video
-        src={firstTrailer.data[480]}
-        poster={firstTrailer.preview}
-        controls
-      />
-    </Box>
+    <video
+      src={firstTrailer.data[480]}
+      poster={firstTrailer.preview}
+      controls
+    />
   );
 }
