@@ -1,7 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 import ApiClient from "../api/apiClient";
-import useGameQueryStore from "./useGameQueryStore";
 import { queryKeys } from "../constants";
 import useSearchParam from "./useSearchParam";
 
@@ -11,13 +10,12 @@ export default function useGames() {
   const genreId = useSearchParam("genreId");
   const platformId = useSearchParam("platformId");
   const sortOrder = useSearchParam("sortOrder");
-
-  const gameQuery = useGameQueryStore((state) => state.gameQuery);
+  const searchedGame = useSearchParam("searchedGame");
 
   return useInfiniteQuery<FetchResponse<Game>, Error>({
     queryKey: [
       ...queryKeys.games,
-      { ...gameQuery, genreId, platformId, sortOrder }
+      { genreId, platformId, sortOrder, searchedGame }
     ],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
@@ -25,7 +23,7 @@ export default function useGames() {
           genres: genreId,
           parent_platforms: platformId,
           ordering: sortOrder,
-          search: gameQuery.searchedGame,
+          search: searchedGame,
           page: pageParam
         }
       }),
