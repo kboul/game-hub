@@ -10,17 +10,21 @@ const apiClient = new ApiClient<Game>("/games");
 export default function useGames() {
   const genreId = useSearchParam("genreId");
   const platformId = useSearchParam("platformId");
+  const sortOrder = useSearchParam("sortOrder");
 
   const gameQuery = useGameQueryStore((state) => state.gameQuery);
 
   return useInfiniteQuery<FetchResponse<Game>, Error>({
-    queryKey: [...queryKeys.games, { ...gameQuery, genreId, platformId }],
+    queryKey: [
+      ...queryKeys.games,
+      { ...gameQuery, genreId, platformId, sortOrder }
+    ],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.getAll({
         params: {
           genres: genreId,
           parent_platforms: platformId,
-          ordering: gameQuery.sortOrder,
+          ordering: sortOrder,
           search: gameQuery.searchedGame,
           page: pageParam
         }

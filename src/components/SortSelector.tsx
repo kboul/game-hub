@@ -1,7 +1,8 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
-import { useGameQueryStore } from "../hooks";
+import { useGameQueryStore, useSearchParam } from "../hooks";
+import { useSearchParams } from "react-router-dom";
 
 const sortOrders = [
   { value: "", label: "Relevance" },
@@ -13,16 +14,18 @@ const sortOrders = [
 ];
 
 export default function SortSelector() {
-  const selectedSortOrder = useGameQueryStore(
-    (state) => state.gameQuery.sortOrder
-  );
-  const setSelectedSortOrder = useGameQueryStore(
-    (state) => state.setSelectedSortOrder
-  );
+  const sortOrder = useSearchParam("sortOrder");
+  const [_, setSearchParams] = useSearchParams();
 
   const currentSortOrder =
-    sortOrders.find(({ value }) => value === selectedSortOrder)?.label ??
-    "Relevance";
+    sortOrders.find(({ value }) => value === sortOrder)?.label ?? "Relevance";
+
+  const handleMenuItemClick = (value: string) => () => {
+    setSearchParams((searchParams) => {
+      searchParams.set("sortOrder", value);
+      return searchParams;
+    });
+  };
 
   return (
     <Menu>
@@ -32,7 +35,7 @@ export default function SortSelector() {
       <MenuList>
         {sortOrders.map(({ value, label }) => (
           <MenuItem
-            onClick={() => setSelectedSortOrder(value)}
+            onClick={handleMenuItemClick(value)}
             key={value}
             value={value}>
             {label}
