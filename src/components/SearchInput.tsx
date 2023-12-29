@@ -1,13 +1,16 @@
 import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { FormEvent, useRef } from "react";
 import { BsSearch } from "react-icons/bs";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
 import { useSearchParam } from "../hooks";
 
 const formStyle = { width: "100%" };
 
 export default function SearchInput() {
   const [_, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
   const searchedGame = useSearchParam("searchedGame");
 
   const ref = useRef<HTMLInputElement>(null);
@@ -15,6 +18,7 @@ export default function SearchInput() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (ref.current) {
+      navigate("/");
       setSearchParams((searchParams) => {
         const value = ref.current?.value;
         if (value) searchParams.set("searchedGame", ref.current?.value);
